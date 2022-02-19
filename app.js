@@ -2,7 +2,8 @@ const bodyParser = require('body-parser');
 const express = require('express')
 const app = express()
 const PORT = 2500;
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { userSchema } = require('./models/user.schema');
 const URL  = "mongodb+srv://Brainiacs_user:jPxVoB5sOM4UdVq1@cluster0.wmwkp.mongodb.net/test"
 
 app.use(bodyParser.urlencoded({extended: false}))
@@ -24,6 +25,8 @@ app.get('/', (req, res)=>{
 app.post('/new', (req, res)=>{
 
     return req.body
+
+    const user = new userSchema()
 })
 
 
