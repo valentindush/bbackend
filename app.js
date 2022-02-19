@@ -22,11 +22,37 @@ app.get('/', (req, res)=>{
     })
 })
 
-app.post('/new', (req, res)=>{
+app.post('/new', async (req, res)=>{
 
-    return req.body
+    try {
+        const user = new userSchema({
+            fname: req.body.fname,
+            lname: req.body.lname,
+            age:req.body.age,
+            password:req.body.password
+        })
+    
+        await user.save()
+        
+    } catch (error) {
+        console.log("Error "+error);
+    }
 
-    const user = new userSchema()
+})
+
+app.get("/user",async(req,res)=>{
+    const users=await userSchema.find();
+    if (users.length==0) {
+        return res.send("no users found");
+    }
+    return res.status(200).json({
+        count:users.length,
+        data:users
+    })
+})
+
+app.put('/update', (req, res)=>{
+    
 })
 
 
