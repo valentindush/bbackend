@@ -51,8 +51,16 @@ app.get("/user",async(req,res)=>{
     })
 })
 
-app.put('/update', (req, res)=>{
-    
+app.put("/user/:id",async(req,res)=>{
+    console.log(req.params.id);
+    const user=await userSchema.findByIdAndUpdate(req.params.id,{
+        fname:req.body.fname
+    })
+    await user.save();
+    if (!user) {
+        return res.status(400).send("Unable to update user")
+    }
+    return res.status(200).send("User updated")
 })
 
 
